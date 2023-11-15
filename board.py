@@ -1,5 +1,6 @@
 # Tic Tac Toe
 # Riya Bharadia = RB
+#Varshini Rajakuamarn = VR
 
 import random #importing the class random, so that it can be used later on in the program RB
 
@@ -148,91 +149,91 @@ def getComputerMove(board, computerLetter):
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 def isBoardFull(board):
-    # Return True if every space on the board has been taken. Otherwise return False.
+    # Return True if every space on the board has been taken. Otherwise return False. VR
    
-    #This for loop iterates through the numbers from 1 to 9. This range represents the spaces on the game board.
+    #This for loop iterates through the numbers from 1 to 9. This range represents the spaces on the game board. VR
     for i in range(1, 10):
        
-        #This loop checks is a specific space is free ir not. It will return True of the space is unoccupied and False if the space is occupied
+        #This loop checks is a specific space is free ir not. It will return True of the space is unoccupied and False if the space is occupied VR
         if isSpaceFree(board, i):
-            #This will return false if any space on the board is found to be free (when isSpaceFree returns True). This means that the birad is not yet full and has at least one unoccpied space.
+            #This will return false if any space on the board is found to be free (when isSpaceFree returns True). This means that the birad is not yet full and has at least one unoccpied space. VR
             return False
-        #This will complete the loop and return true indicating that all spaces have been occupied.
+        #This will complete the loop and return true indicating that all spaces have been occupied. VR
 
     return True
 
-#This will print Welcome to Tic Tac Toe! and will be displayed to the user/player of the game
+#This will print Welcome to Tic Tac Toe! and will be displayed to the user/player of the game VR
 print('Welcome to Tic Tac Toe!')
 
-#This line starts an infinite game loop.
+#This line starts an infinite game loop. VR
 while True:
     '''
     This will first reset the board.
     Initializing the game board as a list of 10 elements.
     The board is represented as a list where each element corresponds to a space on the board.
-    The spaces are initially empty (' ').
+    The spaces are initially empty (' '). VR
     '''
     theBoard = [' '] * 10
    
     ''''
     This line calls a function (inputPlayerLetter()), to determine the player's
     role in the game, (X or O)  and the computer's letter. These letters will be used to
-    represent each player's moves on the game board.
+    represent each player's moves on the game board. VR
     '''
    
     playerLetter, computerLetter = inputPlayerLetter()
    
-    #This line calls a function  whoGoesFirst(), to determine which player goes first.
+    #This line calls a function  whoGoesFirst(), to determine which player goes first. VR
     turn = whoGoesFirst()
    
-    #This line displays a message to inform the player about the starting player.
+    #This line displays a message to inform the player about the starting player. VR
     print('The ' + turn + ' will go first.')
    
     ''''
     This line sets the gameIsPlaying variable to True. As long as gameIsPlaying
-    remains True, the game loop will continue running.
+    remains True, the game loop will continue running. VR
     '''
     gameIsPlaying = True
 
     while gameIsPlaying: ''''
                         loop continues to execute as long as the gameIsPlaying variable is True.
                         Game keeps running until a win, a tie, or some other condition
-                        is met that sets gameIsPlaying to False.
+                        is met that sets gameIsPlaying to False. VR
                         '''
-        if turn == 'player': # Player's turn.
-            drawBoard(theBoard)  # Display the current game board.
-            move = getPlayerMove(theBoard) # Get the player's move.
-            makeMove(theBoard, playerLetter, move) # Update the game board with the player's move.
+        if turn == 'player': # Player's turn. VR
+            drawBoard(theBoard)  # Display the current game board. VR
+            move = getPlayerMove(theBoard) # Get the player's move. VR
+            makeMove(theBoard, playerLetter, move) # Update the game board with the player's move. VR
 
-            if isWinner(theBoard, playerLetter): #Checks if the player has won the game
-                drawBoard(theBoard) #display the current state of the game board
-                print('Hooray! You have won the game!') # If the player has won, this line prints a congratulatory message to the player
-                gameIsPlaying = False # The game ends because the player has won.
-            else: #If the player has not won, the code proceeds to the else part of the conditional.
-                if isBoardFull(theBoard): #checks if the game board is full, checks if no more moves can be made
-                    drawBoard(theBoard) #display the final state of the game board.
-                    print('The game is a tie!') #This line prints a message indicating that the game has ended in a tie because there's no winner and no more available moves.
-                    break # The game is a tie, so exit the loop.
+            if isWinner(theBoard, playerLetter): #Checks if the player has won the game VR
+                drawBoard(theBoard) #display the current state of the game board VR
+                print('Hooray! You have won the game!') # If the player has won, this line prints a congratulatory message to the player VR
+                gameIsPlaying = False # The game ends because the player has won. VR
+            else: #If the player has not won, the code proceeds to the else part of the conditional. VR
+                if isBoardFull(theBoard): #checks if the game board is full, checks if no more moves can be made VR
+                    drawBoard(theBoard) #display the final state of the game board. VR
+                    print('The game is a tie!') #This line prints a message indicating that the game has ended in a tie because there's no winner and no more available moves. VR
+                    break # The game is a tie, so exit the loop. VR
                 else:
-                    turn = 'computer' # Switch to the computer's turn.
+                    turn = 'computer' # Switch to the computer's turn. VR
 
-        else: #This indicates that it is now the computers turn
-            move = getComputerMove(theBoard, computerLetter) # Get and returns the the computer's move.
-            makeMove(theBoard, computerLetter, move) # Update the game board with the computer's move.
+        else: #This indicates that it is now the computers turn VR
+            move = getComputerMove(theBoard, computerLetter) # Get and returns the the computer's move. VR
+            makeMove(theBoard, computerLetter, move) # Update the game board with the computer's move. VR
 
-            if isWinner(theBoard, computerLetter): #Checks if the computer has won the game.
-                drawBoard(theBoard) # #display the current state of the game board
-                print('The computer has beaten you! You lose.') #prints a message to inform the player that the computer has won the game.
-                gameIsPlaying = False # The game loop ends because the computer has won.
-            else: #Indicate when it's neither the player's turn nor the computer's turn, indicating that the game is still in progress.
-                if isBoardFull(theBoard): #Checks if the game board is full, meaning there are no more empty spaces for moves.
-                    drawBoard(theBoard) # Update the game board
-                    print('The game is a tie!') # line prints a message to inform the players that the game has ended in a tie
-                    break # The game is a tie, so exit the loop.
+            if isWinner(theBoard, computerLetter): #Checks if the computer has won the game. VR
+                drawBoard(theBoard) #display the current state of the game board VR
+                print('The computer has beaten you! You lose.') #prints a message to inform the player that the computer has won the game. VR
+                gameIsPlaying = False # The game loop ends because the computer has won. VR
+            else: #Indicate when it's neither the player's turn nor the computer's turn, indicating that the game is still in progress. VR
+                if isBoardFull(theBoard): #Checks if the game board is full, meaning there are no more empty spaces for moves. VR
+                    drawBoard(theBoard) # Update the game board VR
+                    print('The game is a tie!') # line prints a message to inform the players that the game has ended in a tie VR
+                    break # The game is a tie, so exit the loop. VR
                 else:
-                    turn = 'player' # Switch back to the player's turn.
+                    turn = 'player' # Switch back to the player's turn. VR
 
-    print('Do you want to play again? (yes or no)') #line prints a message to the player, asking if they would like to start a new game.
+    print('Do you want to play again? (yes or no)') #line prints a message to the player, asking if they would like to start a new game. VR
     if not input().lower().startswith('y'): '''
                                             This line reads the player's input, which is expected to be either "yes" or "no", this is case senstive
                                             input() is a function that waits for the player to type something and press Enter.
@@ -240,8 +241,8 @@ while True:
                                             This is done to make the comparison case-insensitive, so the player's response
                                             can be in any combination of uppercase and lowercase letters.
                                             startswith('y') checks if the input begins with the letter 'y'.
-                                            '''
+                                            VR '''
         break '''
               if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
               This causes the program to exit the game loop and, might end the game completely
-              '''
+              VR '''
