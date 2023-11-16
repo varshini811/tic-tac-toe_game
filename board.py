@@ -1,8 +1,10 @@
-# Tic Tac Toe
+# Tic Tac Toe screen.blit displayupdate
 # Riya Bharadia = RB
-#Varshini Rajakuamarn = VR
+# Varshini Rajakuamarn = VR
 
 import random #importing the class random, so that it can be used later on in the program RB
+import pygame
+pygame.init()
 
 def drawBoard(board):
     # This function prints out the board that it was passed.
