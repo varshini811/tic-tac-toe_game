@@ -1,6 +1,8 @@
 # Tic Tac Toe
 # Riya Bharadia = RB
 
+# Sneha
+
 import random #importing the class random, so that it can be used later on in the program RB
 
 def drawBoard(board):
