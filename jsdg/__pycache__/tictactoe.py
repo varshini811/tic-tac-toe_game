@@ -199,7 +199,7 @@ while True:
                         Game keeps running until a win, a tie, or some other condition
                         is met that sets gameIsPlaying to False.
                         '''
-        if turn == 'player': # Player's turn.
+    if turn == 'player': # Player's turn.
             drawBoard(theBoard)  # Display the current game board.
             move = getPlayerMove(theBoard) # Get the player's move.
             makeMove(theBoard, playerLetter, move) # Update the game board with the player's move.
@@ -216,7 +216,7 @@ while True:
                 else:
                     turn = 'computer' # Switch to the computer's turn.
 
-        else: #This indicates that it is now the computers turn
+    else: #This indicates that it is now the computers turn
             move = getComputerMove(theBoard, computerLetter) # Get and returns the the computer's move.
             makeMove(theBoard, computerLetter, move) # Update the game board with the computer's move.
 
@@ -241,7 +241,8 @@ while True:
                                             can be in any combination of uppercase and lowercase letters.
                                             startswith('y') checks if the input begins with the letter 'y'.
                                             '''
-        break '''
+    break 
+'''
               if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
               This causes the program to exit the game loop and, might end the game completely
               '''
