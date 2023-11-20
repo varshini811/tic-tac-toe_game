@@ -135,4 +135,22 @@ class Board:
         sqr.draw_fig(surface, xclick, yclick)
 
 
+#Riya's code
+    def check_draw_win(self, surface): #defining the function that checks for the win conditions, both on the inner game and the overall game RB
+        sqr = self.squares[0][0]
+
+        if not isinstance(sqr, Board):
+            #checking for vertical wins RB
+            for col in range(DIM):
+                if self.square[0][col] == self.square[1][col] == self.square[2][col] != 0:
+                    color = CROSS_COLOR if self.square[0][col] == 1 else CIRCLE_COLOR
+                
+                #For a draw
+                ipos = (self.dims.xcor + self.dims.sqsize * (0.5 + col), self.dims.ycor)
+                fpos = (self.dims.xcor + self.dims.sqsize * (0.5 + col), self.dims.ycor + self.dims.size)
+                pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
+                return
+
+
+
 
