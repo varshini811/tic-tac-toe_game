@@ -1,6 +1,7 @@
-from const import *
+#VR
+from Values import *
 
-class BoardDim:
+class Dimensions:
 
     def __init__(self, size, xcor, ycor):
         self.size = size
