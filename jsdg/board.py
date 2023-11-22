@@ -136,21 +136,108 @@ class Board:
 
 
 #Riya's code
-    def check_draw_win(self, surface): #defining the function that checks for the win conditions, both on the inner game and the overall game RB
-        sqr = self.squares[0][0]
+    def manage_win(self, surface, winner, onmain=False):
+    # transparent screen
+        transparent = pygame.Surface( (self.dims.size, self.dims.size) )
+        transparent.set_alpha( ALPHA )
+        transparent.fill( FADE )
+        if onmain: 
+            surface.blit(transparent, (self.dims.xcor, self.dims.ycor))
+            surface.blit(transparent, (self.dims.xcor, self.dims.ycor))
+        surface.blit(transparent, (self.dims.xcor, self.dims.ycor))
+        
+        # draw win
+        if not onmain:
+            # cross
+            if winner == 1:
+                # desc line
+                ipos = (self.dims.xcor + self.offset, 
+                        self.dims.ycor + self.offset)
+                fpos = (self.dims.xcor + self.dims.size - self.offset, 
+                        self.dims.ycor + self.dims.size - self.offset)
+                pygame.draw.line(surface, CROSS_COLOR, ipos, fpos, self.linewidth + 7)
 
-        if not isinstance(sqr, Board):
-            #checking for vertical wins RB
+                # asc line
+                ipos = (self.dims.xcor + self.offset, 
+                        self.dims.ycor + self.dims.size - self.offset)
+                fpos = (self.dims.xcor + self.dims.size - self.offset, 
+                        self.dims.ycor + self.offset)
+                pygame.draw.line(surface, CROSS_COLOR, ipos, fpos, self.linewidth + 7)
+
+            # circle
+            if winner == 2:
+                center = (self.dims.xcor + self.dims.size * 0.5,
+                        self.dims.ycor + self.dims.size * 0.5)
+
+                pygame.draw.circle(surface, CIRCLE_COLOR, center, self.dims.size * 0.4, self.linewidth + 7)
+
+        # inactive board
+        self.active = False
+
+
+    def check_draw_win(self, surface,): #defining the function that checks for the win conditions, both on the inner game and the overall game RB
+        isfull = True
+
+        for row in range(DIM):
             for col in range(DIM):
-                if self.square[0][col] == self.square[1][col] == self.square[2][col] != 0:
-                    color = CROSS_COLOR if self.square[0][col] == 1 else CIRCLE_COLOR
+                sqr = self.squares[row][col] #setting the base number for the square RB
+
+                if isinstance(sqr,Board) and sqr.active:
+
+                    winner = sqr.check_draw_win(surface)
+                    if winner:
+                        self.squares[row][col] = winner
+                        sqr.manage_win(surface,winner)
+
+                #checking the main large board for wins RB
+                #checking for vertical wins RB
+                for c in range(DIM):
+                    if self.squares[0][c] == self.squares[1][c] == self.squares[2][c] != 0:
+                        color = CROSS_COLOR if self.squares[0][c] ==1 else CIRCLE_COLOR
+                        #looking for the draw win RB
+                        ipos = (self.dims.xcor + self.dims.sqsize * (0.5 + c), 
+                                self.dims.ycor + self.offset)
+                        fpos = (self.dims.xcor + self.dims.sqsize * (0.5 + c), 
+                                self.dims.ycor + self.dims.size - self.offset)
+                        pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
+
+                        return self.squares[0][c]
+                    
+                #checking for horizontal wins RB
+                for r in range(DIM):
+                    if self.squares[r][0] == self.squares[r][1] == self.squares[r][2] != 0:
+                        color = CROSS_COLOR if self.squares[r][0] == 1 else CIRCLE_COLOR
+                        #looking for the draw win RB
+                        ipos = (self.dims.xcor + self.offset,
+                                 self.dims.ycor + self.dims.sqsize * (r + 0.5))
+                        fpos = (self.dims.xcor + self.dims.size - self.offset,
+                                 self.dims.ycor + self.dims.sqsize * (r + 0.5))
+                        pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
+
+                        return self.squares[r][0]
                 
-                #For a draw
-                ipos = (self.dims.xcor + self.dims.sqsize * (0.5 + col), self.dims.ycor)
-                fpos = (self.dims.xcor + self.dims.sqsize * (0.5 + col), self.dims.ycor + self.dims.size)
-                pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
-                return
+                #Checking for diagnonal wins RB
+                if self.squares[0][0] == self.squares[1][1] == self.squares[2][2] != 0:
+                    color = CROSS_COLOR if self.squares[1][1] == 1 else CIRCLE_COLOR
+                    # draw win
+                    ipos = (self.dims.xcor + self.offset, 
+                            self.dims.ycor + self.offset)
+                    fpos = (self.dims.xcor + self.dims.size - self.offset, 
+                            self.dims.ycor + self.dims.size - self.offset)
+                    pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
 
+                    return self.squares[1][1]
 
+                # asc
+                if self.squares[2][0] == self.squares[1][1] == self.squares[0][2] != 0:
+                    color = CROSS_COLOR if self.squares[1][1] == 1 else CIRCLE_COLOR
+                    # draw win
+                    ipos = (self.dims.xcor + self.offset, 
+                            self.dims.ycor + self.dims.size - self.offset)
+                    fpos = (self.dims.xcor + self.dims.size - self.offset, 
+                            self.dims.ycor + self.offset)
+                    pygame.draw.line(surface, color, ipos, fpos, self.linewidth)
 
+                    return self.squares[1][1]
+                    
 
