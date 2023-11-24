@@ -1,7 +1,7 @@
 # Tic Tac Toe
 # Riya Bharadia = RB
 
-# Sneha
+# Sneha Islam = SI
 
 import random #importing the class random, so that it can be used later on in the program RB
 
@@ -72,81 +72,81 @@ def isWinner(bo, le):
     (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
 
 def getPlayerMove(board):
-    # Let the player type in their move.
+    # Let the player type in their move. SI
     move = ' '
-    # Check if 'move' falls under the range of 1-9 or if the space correlating with 'move' is free for it to be a valid input.
+    # Check if 'move' falls under the range of 1-9 or if the space correlating with 'move' is free for it to be a valid input. SI
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
-        # If the entered 'move' does not meet the conditions, the loop will prompt the user to input a new move. The loop will continue till a valid move is entered to proceed to the next part of the code.
+        # If the entered 'move' does not meet the conditions, the loop will prompt the user to input a new move. The loop will continue till a valid move is entered to proceed to the next part of the code. SI
         print('What is your next move? (1-9)')
         move = input()
-        # After a valid move has been entered, the program will return the value of the move in its integer form.
+        # After a valid move has been entered, the program will return the value of the move in its integer form. SI
     return int(move)
 
 def chooseRandomMoveFromList(board, movesList):
-    # Initializes 'possibleMoves', an empty list to store the valid inputs for move.
+    # Initializes 'possibleMoves', an empty list to store the valid inputs for move. SI
     possibleMoves = []
-    # 'i' is iterated through each element in movesList, which is a list of potential moves.
+    # 'i' is iterated through each element in movesList, which is a list of potential moves. SI
     for i in movesList:
-        # Check if 'i' is a free space on the gameboard.
+        # Check if 'i' is a free space on the gameboard. SI
         if isSpaceFree(board, i):
-            # If i meets the condition, then it will be added to the possibleMoves list.
+            # If i meets the condition, then it will be added to the possibleMoves list. SI
             possibleMoves.append(i)
-    # Check if there are any valid moves altogether in possibleMoves.
+    # Check if there are any valid moves altogether in possibleMoves. SI
     if len(possibleMoves) != 0:
-        # If there are valid moves, a random move is selected from possibleMoves and is returned.
+        # If there are valid moves, a random move is selected from possibleMoves and is returned. SI
         return random.choice(possibleMoves)
-    # If there are no valid moves, the function returns None.
+    # If there are no valid moves, the function returns None. SI
     else:
         return None
 
 def getComputerMove(board, computerLetter):
-    # Given a board and the computer's letter, determine where to move and return that move.
-    # Checks which letter the computer and user are playing as. If the computer is using 'X', then the user is playing as 'O'. 
+    # Given a board and the computer's letter, determine where to move and return that move. SI
+    # Checks which letter the computer and user are playing as. If the computer is using 'X', then the user is playing as 'O'. SI
     if computerLetter == 'X':
         playerLetter = 'O'
-        # If not, then the game assumes that the computer is playing as 'O', and the user is playing as 'X'.
+        # If not, then the game assumes that the computer is playing as 'O', and the user is playing as 'X'. SI
     else:
         playerLetter = 'X'
 
-    # The code below outlines the algorithm that AI uses to make moves, and checks if the computer won
-    # First, check if we can win in the next move by reinforcing the available moves positions (1 to 9) on the board
+    # The code below outlines the algorithm that AI uses to make moves, and checks if the computer won. SI
+    # First, check if we can win in the next move by reinforcing the available moves positions (1 to 9) on the board. SI
     for i in range(1, 10):
-        # A copy of the existing gameboard is made.
+        # A copy of the existing gameboard is made. SI
         boardCopy = getBoardCopy(board)
-        # Computer's letter is replicated using 'makeMove'. 
+        # Computer's letter is replicated using 'makeMove'. SI
         if isSpaceFree(boardCopy, i):
             makeMove(boardCopy, computerLetter, i)
-            # Checks if the computer wins from the boardCopy, by setting conditions of winning to isWinner. 
-            # If computer can win the next round, the game returns 'i', leading to victory
+            # Checks if the computer wins from the boardCopy, by setting conditions of winning to isWinner. SI
+            # If computer can win the next round, the game returns 'i', leading to victory. SI
             if isWinner(boardCopy, computerLetter):
                 return i
 
-    # Checks if the player could win on his next move, and block them by putting down the computer's letter (X or O) in that position.
-    # Checking the available positions on the board range(1, 10).
+    # Checks if the player could win on his next move, and block them by putting down the computer's letter (X or O) in that position. SI
+    # Checking the available positions on the board range(1, 10). SI
 
     for i in range(1, 10):
-        # Refers back to the copy of the existing board game
+        # Refers back to the copy of the existing board game. SI
         boardCopy = getBoardCopy(board)
-        # Checks if the user can win on the next move.
-        # Checking if i is free
+        # Checks if the user can win on the next move. SI
+        # Checking if i is free. SI
         if isSpaceFree(boardCopy, i):
             makeMove(boardCopy, playerLetter, i)
-            # If the user is going to win, the computer returns 'i' in that position.
+            # If the user is going to win, the computer returns 'i' in that position. SI
             if isWinner(boardCopy, playerLetter):
                 return i
 
-    # If neither the computer nor the user is winning, the computer tries to take one of the corners, if they are free.
-    # Checking if the corners [positions 1,3,7,0] are free.
+    # If neither the computer nor the user is winning, the computer tries to take one of the corners, if they are free. SI 
+    # Checking if the corners [positions 1,3,7,0] are free. SI
     move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
-    # If any of the corner positions are free, the computer outputs its move there.
+    # If any of the corner positions are free, the computer outputs its move there. SI
     if move != None:
         return move
 
-    # If the corner positions are not free, the computer tries to occupy the center [position 5], if it is free.
+    # If the corner positions are not free, the computer tries to occupy the center [position 5], if it is free. SI 
     if isSpaceFree(board, 5):
         return 5
 
-    # If neither the corners nor the centre is free, the computer places its move on one of the sides [positions 2, 4, 6, or 8].
+    # If neither the corners nor the centre is free, the computer places its move on one of the sides [positions 2, 4, 6, or 8]. SI
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 def isBoardFull(board):
