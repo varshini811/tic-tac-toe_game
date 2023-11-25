@@ -170,7 +170,7 @@ class Board:
                         self.dims.ycor + self.dims.size * 0.5)
 
                 pygame.draw.circle(surface, CIRCLE_COLOR, center, self.dims.size * 0.4, self.linewidth + 7)
-
+                
         # inactive board
         self.active = False
 
