@@ -1,4 +1,5 @@
 #VR
+#Riya Bharadia = RB
 import pygame
 import sys
 
@@ -33,11 +34,10 @@ class Main:
                         game.board.draw_fig(screen, xclick, yclick)
 
                         #determining the overall winner of the game RB
-                        winner = game.board.check_draw_win(screen)
-                        if winner:
+                        winner = game.board.check_draw_win(screen) #putting the board under the win function to check for the winners of the "mini games" RB
+                        if winner: #if there is a winner determinded from the previous function runs the next functions to determine if there is an overal winner RB
                             game.board.manage_win(screen, winner, onmain=True)
                             game.ultimate_winner(screen, winner)
-
 
                         game.next_turn()
 
