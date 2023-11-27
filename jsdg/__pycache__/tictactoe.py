@@ -33,7 +33,7 @@ def inputPlayerLetter():
         letter = input().upper() #Requesting an input from the player and assigning the input to letter, and converting it to upper case to compare with the while statement RB
 
     # the first element in the list is the player's letter, the second is the computer's letter.
-    if letter == 'X': #Checcking to see what the player picked and then assigning the player and the computer their corresponding letters RB
+    if letter == 'X': #Checking to see what the player picked and then assigning the player and the computer their corresponding letters RB
         return ['X', 'O'] #if the player picked X RB
     else:
         return ['O', 'X'] #otherwise the computer gets X RB
@@ -71,6 +71,17 @@ def isWinner(bo, le):
     (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
     (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
 
+def getBoardCopy(board): #makes an up to date copy of the board to later make comparisons and moves off this up to date board RB
+    # Make a copy of the board list and return it.
+    boardCopy = [] #setting the board as a list
+    for i in board: #creating a loop that repeats and copies each part of the board to the boardcopy RB
+        boardCopy.append(i)
+    return boardCopy #returns this copied board RB
+
+def isSpaceFree(board, move): #Used to check if that space on the board is free and avaiable RB
+    # Return true if the passed move is free on the passed board.
+    return board[move] == ' ' #if the space is empty this returns True and thus goes forward with the move RB
+
 def getPlayerMove(board):
     # Let the player type in their move. SI
     move = ' '
@@ -83,7 +94,7 @@ def getPlayerMove(board):
     return int(move)
 
 def chooseRandomMoveFromList(board, movesList):
-    # Initializes 'possibleMoves', an empty list to store the valid inputs for move. SI
+    ## Initializes 'possibleMoves', an empty list to store the valid inputs for move. SI
     possibleMoves = []
     # 'i' is iterated through each element in movesList, which is a list of potential moves. SI
     for i in movesList:
@@ -154,13 +165,11 @@ def isBoardFull(board):
    
     #This for loop iterates through the numbers from 1 to 9. This range represents the spaces on the game board.
     for i in range(1, 10):
-       
         #This loop checks is a specific space is free ir not. It will return True of the space is unoccupied and False if the space is occupied
         if isSpaceFree(board, i):
             #This will return false if any space on the board is found to be free (when isSpaceFree returns True). This means that the birad is not yet full and has at least one unoccpied space.
             return False
         #This will complete the loop and return true indicating that all spaces have been occupied.
-
     return True
 
 #This will print Welcome to Tic Tac Toe! and will be displayed to the user/player of the game
@@ -175,34 +184,30 @@ while True:
     The spaces are initially empty (' ').
     '''
     theBoard = [' '] * 10
-   
     ''''
     This line calls a function (inputPlayerLetter()), to determine the player's
     role in the game, (X or O)  and the computer's letter. These letters will be used to
     represent each player's moves on the game board.
     '''
-   
     playerLetter, computerLetter = inputPlayerLetter()
-   
     #This line calls a function  whoGoesFirst(), to determine which player goes first.
     turn = whoGoesFirst()
-   
     #This line displays a message to inform the player about the starting player.
     print('The ' + turn + ' will go first.')
-   
-    ''''
+    '''
     This line sets the gameIsPlaying variable to True. As long as gameIsPlaying
     remains True, the game loop will continue running.
     '''
     gameIsPlaying = True
 
-    while gameIsPlaying: ''''
-                        loop continues to execute as long as the gameIsPlaying variable is True.
-                        Game keeps running until a win, a tie, or some other condition
-                        is met that sets gameIsPlaying to False.
-                        '''
-    if turn == 'player': # Player's turn.
-            drawBoard(theBoard)  # Display the current game board.
+    while gameIsPlaying: 
+        '''
+        loop continues to execute as long as the gameIsPlaying variable is True.
+        Game keeps running until a win, a tie, or some other condition
+        is met that sets gameIsPlaying to False.
+        '''
+        if turn == 'player': # Player's turn.
+            drawBoard(theBoard) # Display the current game board.
             move = getPlayerMove(theBoard) # Get the player's move.
             makeMove(theBoard, playerLetter, move) # Update the game board with the player's move.
 
@@ -218,7 +223,7 @@ while True:
                 else:
                     turn = 'computer' # Switch to the computer's turn.
 
-    else: #This indicates that it is now the computers turn
+        else: #This indicates that it is now the computers turn
             move = getComputerMove(theBoard, computerLetter) # Get and returns the the computer's move.
             makeMove(theBoard, computerLetter, move) # Update the game board with the computer's move.
 
@@ -235,16 +240,17 @@ while True:
                     turn = 'player' # Switch back to the player's turn.
 
     print('Do you want to play again? (yes or no)') #line prints a message to the player, asking if they would like to start a new game.
-    if not input().lower().startswith('y'): '''
-                                            This line reads the player's input, which is expected to be either "yes" or "no", this is case senstive
-                                            input() is a function that waits for the player to type something and press Enter.
-                                            .lower() is used to convert the input to lowercase.
-                                            This is done to make the comparison case-insensitive, so the player's response
-                                            can be in any combination of uppercase and lowercase letters.
-                                            startswith('y') checks if the input begins with the letter 'y'.
-                                            '''
-    break 
+    if not input().lower().startswith('y'):
+        '''
+        This line reads the player's input, which is expected to be either "yes" or "no", this is case senstive
+        input() is a function that waits for the player to type something and press Enter.
+        .lower() is used to convert the input to lowercase.
+        This is done to make the comparison case-insensitive, so the player's response
+        can be in any combination of uppercase and lowercase letters.
+        startswith('y') checks if the input begins with the letter 'y'.
+        '''
+        break 
+
+''' if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
+This causes the program to exit the game loop and, might end the game completely
 '''
-              if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
-              This causes the program to exit the game loop and, might end the game completely
-              '''
