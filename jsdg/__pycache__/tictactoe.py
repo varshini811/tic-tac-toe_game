@@ -1,7 +1,7 @@
 # Tic Tac Toe
 # Riya Bharadia = RB
 
-# Sneha
+# Sneha Islam = SI
 
 import random #importing the class random, so that it can be used later on in the program RB
 
@@ -33,7 +33,7 @@ def inputPlayerLetter():
         letter = input().upper() #Requesting an input from the player and assigning the input to letter, and converting it to upper case to compare with the while statement RB
 
     # the first element in the list is the player's letter, the second is the computer's letter.
-    if letter == 'X': #Checcking to see what the player picked and then assigning the player and the computer their corresponding letters RB
+    if letter == 'X': #Checking to see what the player picked and then assigning the player and the computer their corresponding letters RB
         return ['X', 'O'] #if the player picked X RB
     else:
         return ['O', 'X'] #otherwise the computer gets X RB
@@ -71,82 +71,93 @@ def isWinner(bo, le):
     (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
     (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
 
+def getBoardCopy(board): #makes an up to date copy of the board to later make comparisons and moves off this up to date board RB
+    # Make a copy of the board list and return it.
+    boardCopy = [] #setting the board as a list
+    for i in board: #creating a loop that repeats and copies each part of the board to the boardcopy RB
+        boardCopy.append(i)
+    return boardCopy #returns this copied board RB
+
+def isSpaceFree(board, move): #Used to check if that space on the board is free and avaiable RB
+    # Return true if the passed move is free on the passed board.
+    return board[move] == ' ' #if the space is empty this returns True and thus goes forward with the move RB
+
 def getPlayerMove(board):
-    # Let the player type in their move.
+    # Let the player type in their move. SI
     move = ' '
-    # Check if 'move' falls under the range of 1-9 or if the space correlating with 'move' is free for it to be a valid input.
+    # Check if 'move' falls under the range of 1-9 or if the space correlating with 'move' is free for it to be a valid input. SI
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
-        # If the entered 'move' does not meet the conditions, the loop will prompt the user to input a new move. The loop will continue till a valid move is entered to proceed to the next part of the code.
+        # If the entered 'move' does not meet the conditions, the loop will prompt the user to input a new move. The loop will continue till a valid move is entered to proceed to the next part of the code. SI
         print('What is your next move? (1-9)')
         move = input()
-        # After a valid move has been entered, the program will return the value of the move in its integer form.
+        # After a valid move has been entered, the program will return the value of the move in its integer form. SI
     return int(move)
 
 def chooseRandomMoveFromList(board, movesList):
-    # Initializes 'possibleMoves', an empty list to store the valid inputs for move.
+    ## Initializes 'possibleMoves', an empty list to store the valid inputs for move. SI
     possibleMoves = []
-    # 'i' is iterated through each element in movesList, which is a list of potential moves.
+    # 'i' is iterated through each element in movesList, which is a list of potential moves. SI
     for i in movesList:
-        # Check if 'i' is a free space on the gameboard.
+        # Check if 'i' is a free space on the gameboard. SI
         if isSpaceFree(board, i):
-            # If i meets the condition, then it will be added to the possibleMoves list.
+            # If i meets the condition, then it will be added to the possibleMoves list. SI
             possibleMoves.append(i)
-    # Check if there are any valid moves altogether in possibleMoves.
+    # Check if there are any valid moves altogether in possibleMoves. SI
     if len(possibleMoves) != 0:
-        # If there are valid moves, a random move is selected from possibleMoves and is returned.
+        # If there are valid moves, a random move is selected from possibleMoves and is returned. SI
         return random.choice(possibleMoves)
-    # If there are no valid moves, the function returns None.
+    # If there are no valid moves, the function returns None. SI
     else:
         return None
 
 def getComputerMove(board, computerLetter):
-    # Given a board and the computer's letter, determine where to move and return that move.
-    # Checks which letter the computer and user are playing as. If the computer is using 'X', then the user is playing as 'O'. 
+    # Given a board and the computer's letter, determine where to move and return that move. SI
+    # Checks which letter the computer and user are playing as. If the computer is using 'X', then the user is playing as 'O'. SI
     if computerLetter == 'X':
         playerLetter = 'O'
-        # If not, then the game assumes that the computer is playing as 'O', and the user is playing as 'X'.
+        # If not, then the game assumes that the computer is playing as 'O', and the user is playing as 'X'. SI
     else:
         playerLetter = 'X'
 
-    # The code below outlines the algorithm that AI uses to make moves, and checks if the computer won
-    # First, check if we can win in the next move by reinforcing the available moves positions (1 to 9) on the board
+    # The code below outlines the algorithm that AI uses to make moves, and checks if the computer won. SI
+    # First, check if we can win in the next move by reinforcing the available moves positions (1 to 9) on the board. SI
     for i in range(1, 10):
-        # A copy of the existing gameboard is made.
+        # A copy of the existing gameboard is made. SI
         boardCopy = getBoardCopy(board)
-        # Computer's letter is replicated using 'makeMove'. 
+        # Computer's letter is replicated using 'makeMove'. SI
         if isSpaceFree(boardCopy, i):
             makeMove(boardCopy, computerLetter, i)
-            # Checks if the computer wins from the boardCopy, by setting conditions of winning to isWinner. 
-            # If computer can win the next round, the game returns 'i', leading to victory
+            # Checks if the computer wins from the boardCopy, by setting conditions of winning to isWinner. SI
+            # If computer can win the next round, the game returns 'i', leading to victory. SI
             if isWinner(boardCopy, computerLetter):
                 return i
 
-    # Checks if the player could win on his next move, and block them by putting down the computer's letter (X or O) in that position.
-    # Checking the available positions on the board range(1, 10).
+    # Checks if the player could win on his next move, and block them by putting down the computer's letter (X or O) in that position. SI
+    # Checking the available positions on the board range(1, 10). SI
 
     for i in range(1, 10):
-        # Refers back to the copy of the existing board game
+        # Refers back to the copy of the existing board game. SI
         boardCopy = getBoardCopy(board)
-        # Checks if the user can win on the next move.
-        # Checking if i is free
+        # Checks if the user can win on the next move. SI
+        # Checking if i is free. SI
         if isSpaceFree(boardCopy, i):
             makeMove(boardCopy, playerLetter, i)
-            # If the user is going to win, the computer returns 'i' in that position.
+            # If the user is going to win, the computer returns 'i' in that position. SI
             if isWinner(boardCopy, playerLetter):
                 return i
 
-    # If neither the computer nor the user is winning, the computer tries to take one of the corners, if they are free.
-    # Checking if the corners [positions 1,3,7,0] are free.
+    # If neither the computer nor the user is winning, the computer tries to take one of the corners, if they are free. SI 
+    # Checking if the corners [positions 1,3,7,0] are free. SI
     move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
-    # If any of the corner positions are free, the computer outputs its move there.
+    # If any of the corner positions are free, the computer outputs its move there. SI
     if move != None:
         return move
 
-    # If the corner positions are not free, the computer tries to occupy the center [position 5], if it is free.
+    # If the corner positions are not free, the computer tries to occupy the center [position 5], if it is free. SI 
     if isSpaceFree(board, 5):
         return 5
 
-    # If neither the corners nor the centre is free, the computer places its move on one of the sides [positions 2, 4, 6, or 8].
+    # If neither the corners nor the centre is free, the computer places its move on one of the sides [positions 2, 4, 6, or 8]. SI
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 def isBoardFull(board):
@@ -154,13 +165,11 @@ def isBoardFull(board):
    
     #This for loop iterates through the numbers from 1 to 9. This range represents the spaces on the game board.
     for i in range(1, 10):
-       
         #This loop checks is a specific space is free ir not. It will return True of the space is unoccupied and False if the space is occupied
         if isSpaceFree(board, i):
             #This will return false if any space on the board is found to be free (when isSpaceFree returns True). This means that the birad is not yet full and has at least one unoccpied space.
             return False
         #This will complete the loop and return true indicating that all spaces have been occupied.
-
     return True
 
 #This will print Welcome to Tic Tac Toe! and will be displayed to the user/player of the game
@@ -175,34 +184,30 @@ while True:
     The spaces are initially empty (' ').
     '''
     theBoard = [' '] * 10
-   
     ''''
     This line calls a function (inputPlayerLetter()), to determine the player's
     role in the game, (X or O)  and the computer's letter. These letters will be used to
     represent each player's moves on the game board.
     '''
-   
     playerLetter, computerLetter = inputPlayerLetter()
-   
     #This line calls a function  whoGoesFirst(), to determine which player goes first.
     turn = whoGoesFirst()
-   
     #This line displays a message to inform the player about the starting player.
     print('The ' + turn + ' will go first.')
-   
-    ''''
+    '''
     This line sets the gameIsPlaying variable to True. As long as gameIsPlaying
     remains True, the game loop will continue running.
     '''
     gameIsPlaying = True
 
-    while gameIsPlaying: ''''
-                        loop continues to execute as long as the gameIsPlaying variable is True.
-                        Game keeps running until a win, a tie, or some other condition
-                        is met that sets gameIsPlaying to False.
-                        '''
-    if turn == 'player': # Player's turn.
-            drawBoard(theBoard)  # Display the current game board.
+    while gameIsPlaying: 
+        '''
+        loop continues to execute as long as the gameIsPlaying variable is True.
+        Game keeps running until a win, a tie, or some other condition
+        is met that sets gameIsPlaying to False.
+        '''
+        if turn == 'player': # Player's turn.
+            drawBoard(theBoard) # Display the current game board.
             move = getPlayerMove(theBoard) # Get the player's move.
             makeMove(theBoard, playerLetter, move) # Update the game board with the player's move.
 
@@ -218,7 +223,7 @@ while True:
                 else:
                     turn = 'computer' # Switch to the computer's turn.
 
-    else: #This indicates that it is now the computers turn
+        else: #This indicates that it is now the computers turn
             move = getComputerMove(theBoard, computerLetter) # Get and returns the the computer's move.
             makeMove(theBoard, computerLetter, move) # Update the game board with the computer's move.
 
@@ -235,16 +240,17 @@ while True:
                     turn = 'player' # Switch back to the player's turn.
 
     print('Do you want to play again? (yes or no)') #line prints a message to the player, asking if they would like to start a new game.
-    if not input().lower().startswith('y'): '''
-                                            This line reads the player's input, which is expected to be either "yes" or "no", this is case senstive
-                                            input() is a function that waits for the player to type something and press Enter.
-                                            .lower() is used to convert the input to lowercase.
-                                            This is done to make the comparison case-insensitive, so the player's response
-                                            can be in any combination of uppercase and lowercase letters.
-                                            startswith('y') checks if the input begins with the letter 'y'.
-                                            '''
-    break 
+    if not input().lower().startswith('y'):
+        '''
+        This line reads the player's input, which is expected to be either "yes" or "no", this is case senstive
+        input() is a function that waits for the player to type something and press Enter.
+        .lower() is used to convert the input to lowercase.
+        This is done to make the comparison case-insensitive, so the player's response
+        can be in any combination of uppercase and lowercase letters.
+        startswith('y') checks if the input begins with the letter 'y'.
+        '''
+        break 
+
+''' if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
+This causes the program to exit the game loop and, might end the game completely
 '''
-              if the player's input does not start with 'y' (meaning they did not enter "yes"), the break statement is executed.
-              This causes the program to exit the game loop and, might end the game completely
-              '''
