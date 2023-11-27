@@ -33,33 +33,27 @@ class Game:
     def next_turn(self):
         self.player = 2 if self.player == 1 else 1
         
-    #This part of the code is responsible for hadeling the displaya nd action when there is an "ultimate" winner for the game - VR
-    def ultimate_winner(self, surface, winner):
-        print('ULTIMATE WINNER! ->', winner)
+    def ultimate_winner(self, surface, winner): #setting the winning screen RB
+        print('ULTIMATE WINNER! ->', winner) #winner message RB
 
-        #This part of tehe code draws an "X" if player 1 wins and draws a "O" if player 2 wins - VR
-        if winner == 1:
-            color = CROSS_COLOR
+        if winner == 1: #drawing the big X if the winner if X RB
+            color = CROSS_COLOR #seting the color RB
 
-            #Theses are the coordinates for drawing the X - VR
+            '''drawing the big X by splitting it into 2 lines, here are the coordinates of where each line starts and stops RB''' 
             iDesc = (WIDTH // 2 - 110, HEIGHT // 2 - 110)
             fDesc = (WIDTH // 2 + 110, HEIGHT // 2 + 110)
 
             iAsc = (WIDTH // 2 - 110, HEIGHT // 2 + 110)
             fAsc = (WIDTH // 2 + 110, HEIGHT // 2 - 110)
 
-            #This is the code to draw the X - VR
-            pygame.draw.line(surface, color, iDesc, fDesc, 22)
+            pygame.draw.line(surface, color, iDesc, fDesc, 22) #drawing each line using the coordinates set for the start and stop RB
             pygame.draw.line(surface, color, iAsc, fAsc, 22)
 
-        else:
-            color = CIRCLE_COLOR
+        elif winner == 2: #drawing a circle if the winner is O RB
+            color = CIRCLE_COLOR #setting the color RB
 
-            #Theses are the coordinates for drawing the O - VR
-            center = (WIDTH // 2, HEIGHT // 2)
-
-            #This is the code to draw the O - VR
-            pygame.draw.circle(surface, color, center, WIDTH // 4, 22)
+            center = (WIDTH // 2, HEIGHT // 2) #setting the position of the center of the circle RB
+            pygame.draw.circle(surface, color, center, WIDTH // 4, 22) #drawing the circle using the pygame builtin circle while setting radius and color
 
         #This will display a message for the ultimate winner message - VR
         font = pygame.font.SysFont('monospace', 64)
