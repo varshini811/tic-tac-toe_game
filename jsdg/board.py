@@ -1,16 +1,20 @@
-#VR
+#Varshini Rajakumaran = VR
 #Riya Bharadia = RB
-import pygame
 
+#Importing pygame, importing constants from the Values module and importing Dimensions from the Board_Dimensions module - VR
+
+import pygame
 from Values import *
 from Board_Dimensions import Dimensions
 
 class Board:
 
     def __init__(self, dims=None, linewidth=15, ultimate=False, max=False):
+        #This initializes the board with default values from the provided dimensions -VR
         self.squares = [ [0, 0, 0] for row in range(DIM)]
         self.dims = dims
 
+        #This will use the defulat dimenstion - VR
         if not dims: 
             self.dims = Dimensions(WIDTH, 0, 0)
 
@@ -19,11 +23,14 @@ class Board:
         self.radius = (self.dims.sqsize // 2) * 0.7
         self.max = max
 
+        #Creating the sub(smaller) tic tac toe board as part of ultimate tic tac toe - VR
         if ultimate: 
             self.create_ultimate()
 
+        #Indicating that the board is active (not yer won by a player) -VR
         self.active = True
 
+    #Returing a string represenation of the board - VR
     def __str__(self):
         s = ''
         for row in range(DIM):
@@ -32,6 +39,7 @@ class Board:
                 s += str(sqr)
         return s
 
+    #Creating the sub boards for the ultimate Tic tac toe game - VR
     def create_ultimate(self):
         for row in range(DIM):
             for col in range(DIM):
@@ -42,44 +50,53 @@ class Board:
                 linewidth = self.linewidth - 7
                 ultimate = self.max
 
+#This creates the sub board for the game as well as assiginig it to the corresponding postion in the matrix - VR
                 self.squares[row][col] = Board(dims=dims, linewidth=linewidth, ultimate=ultimate, max=False)
     
+    #This renders the current board on the provided surface - VR
     def render(self, surface):
+
+        #This renders sub-boards recursively -VR
         for row in range(DIM):
             for col in range(DIM):
                 sqr = self.squares[row][col]
 
                 if isinstance(sqr, Board): sqr.render(surface)
         
-        # vertical lines
+        #This creates the vertical lines of the board - VR
         pygame.draw.line(surface, LINE_COLOR, (self.dims.xcor + self.dims.sqsize, self.dims.ycor),                  (self.dims.xcor + self.dims.sqsize, self.dims.ycor + self.dims.size), self.linewidth)
         pygame.draw.line(surface, LINE_COLOR, (self.dims.xcor + self.dims.size - self.dims.sqsize, self.dims.ycor), (self.dims.xcor + self.dims.size - self.dims.sqsize, self.dims.ycor + self.dims.size), self.linewidth)
         
-        # horizontal lines
+        #This creates the horizontal lines of the board - VR
         pygame.draw.line(surface, LINE_COLOR, (self.dims.xcor, self.dims.ycor + self.dims.sqsize),                  (self.dims.xcor + self.dims.size, self.dims.ycor + self.dims.sqsize), self.linewidth)
         pygame.draw.line(surface, LINE_COLOR, (self.dims.xcor, self.dims.ycor + self.dims.size - self.dims.sqsize), (self.dims.xcor + self.dims.size, self.dims.ycor + self.dims.size - self.dims.sqsize), self.linewidth)
 
+    #This checks of the clicked area on the board is a valid spot - VR
     def valid_sqr(self, xclick, yclick):
 
+        #This determines the which row and coloum the player clicked - VR
         row = yclick // self.dims.sqsize
         col = xclick // self.dims.sqsize
 
+        #Adjusts for clicks that are out of range - VR
         if row > 2: row %= DIM
         if col > 2: col %= DIM
 
         sqr = self.squares[row][col]
 
-        # base 
+        #This is a base case that checks if the square is emety and if the board is active - VR
         if not isinstance(sqr, Board):
             return sqr == 0 and self.active
 
-        # recursive step
+        #This is recursive step that checks the sub board - VR
         return sqr.valid_sqr(xclick, yclick)
-
+    
+    #This determines the which row and coloum the player clicked - VR
     def mark_sqr(self, xclick, yclick, player):
         row = yclick // self.dims.sqsize
         col = xclick // self.dims.sqsize
 
+        #Adjusts for clicks that are out of range - VR
         if row > 2: row %= DIM
         if col > 2: col %= DIM
 
@@ -87,52 +104,59 @@ class Board:
 
         print('marking -> (', row, col, ')')
 
-        # base 
+        #This is a base case that checks if the square is a board and it will mark it with the players symbol - VR 
         if not isinstance(sqr, Board):
             self.squares[row][col] = player
             return
 
-        # recursive step
+        #This is recursive step that checks the sub board - VR
         sqr.mark_sqr(xclick, yclick, player)
 
+    #This will draw either X or O depending on the player - VR
     def draw_fig(self, surface, xclick, yclick):
+
+        #This determines the which row and coloum the player clicked - VR
         row = yclick // self.dims.sqsize
         col = xclick // self.dims.sqsize
 
+        #Adjusts for clicks that are out of range - VR
         if row > 2: row %= DIM
         if col > 2: col %= DIM
 
         sqr = self.squares[row][col]
 
-        # base 
+        #This is a base case that checks if the square is a board and it will mark it with the players symbol - VR  
         if not isinstance(sqr, Board):
 
-            # cross line
+            #Draws the X if player is 1 - VR
             if sqr == 1:
-                # descending line
+                #Draws teh descending line of the X - VR
                 ipos = (self.dims.xcor + (col * self.dims.sqsize) + self.offset, 
                         self.dims.ycor + (row * self.dims.sqsize) + self.offset)
                 fpos = (self.dims.xcor + self.dims.sqsize * (1 + col) - self.offset, 
                         self.dims.ycor + self.dims.sqsize * (1 + row) - self.offset)
                 pygame.draw.line(surface, CROSS_COLOR, ipos, fpos, self.linewidth)
 
-                # ascending line
+                #Draws the ascending line of the X - VR
                 ipos = (self.dims.xcor + (col * self.dims.sqsize) + self.offset, 
                         self.dims.ycor + self.dims.sqsize * (1 + row) - self.offset)
                 fpos = (self.dims.xcor + self.dims.sqsize * (1 + col) - self.offset, 
                         self.dims.ycor + (row * self.dims.sqsize) + self.offset)
                 pygame.draw.line(surface, CROSS_COLOR, ipos, fpos, self.linewidth)
             
-            # circle (o)
+            #Draws a O of it is player's 2 turn -VR
             elif sqr == 2:
+                #This calculates the centers of the clicked square to ensure that the O is placed in the centre of the square - VR
                 center = (self.dims.xcor + self.dims.sqsize * (0.5 + col),
                           self.dims.ycor + self.dims.sqsize * (0.5 + row))
 
+                #This draws a O on the surface that represents player's 2 move - VR
                 pygame.draw.circle(surface, CIRCLE_COLOR, center, self.radius, self.linewidth)
-
+            
+            #This wil return from the function if the square is not another board (base case) - VR
             return
 
-        # recursive step
+        #This is a recursive step, if the square is on another boars, it will countiue to draw in the sub board - VR
         sqr.draw_fig(surface, xclick, yclick)
 
 
