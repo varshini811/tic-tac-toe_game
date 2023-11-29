@@ -1,6 +1,6 @@
 # Tic Tac Toe
 # Riya Bharadia = RB
-
+# Varshini
 # Sneha Islam = SI
 
 import random #importing the class random, so that it can be used later on in the program RB
