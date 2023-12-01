@@ -2,28 +2,35 @@
 #Adding Graphics
 #Importing images from files
 
+import pygame
 from PIL import Image
 
 #This graphic will be displayed if player 1 wins
-Filename_Winning1 =  "IMG_happy1.jpg"
-img1 = Image.open(Filename_Winning1)
+winning_faceX = pygame.image.load("IMG_happy1.jpg") #
+screen_for_pics = pygame.display.set_mode((600,600))
+screen_for_pics.fill((255, 0, 128))
 
 #This graphic will be displayed if player 2 wins
-Filename_Winning2 = "IMG_happy2.jpg"
-img2 = Image.open(Filename_Winning2)
+winning_faceO = pygame.image.load("IMG_happy2.jpg") #
+screen_for_pics2 = pygame.display.set_mode((600,600))
+screen_for_pics2.fill((255, 0, 128))
 
 #This graphic will be displayed if player 1 loses
-Filename_Losing1 = ("IMG_sad1.jpg")
-img3 = Image.open(Filename_Losing1)
+losing_faceX = pygame.image.load("IMG_sad1.jpg")
+screen_for_pics3 = pygame.display.set_mode(600,600)
+screen_for_pics3.fill((255, 0, 128))
 
 #This graphic will be displayed if player 2 loses
-Filename_Losing2 = ("IMG_sad2.jpg")
-img4 = Image.open(Filename_Losing2)
+losing_faceO = pygame.image.load("IMG_sad2.jpg")
+screen_for_pics4 = pygame.display.set_mode((600,600))
+screen_for_pics4.fill((255, 0, 128))
 
 #This graphic will be displayed when player 1 is thinking about their next move
-Filename_Thinking1 = ("IMG_thinking1.jpg")
-img5 = Image.open(Filename_Thinking1)
+thinking_faceX = pygame.image.load("IMG_thinking1.jpg")
+screen_for_pics5 = pygame.display.set_mode((600,600))
+screen_for_pics5.fill((255, 0, 128))
 
 #This graphic will be displayed when player 1 is thinking about their next move
-Filename_Thinking2 = ("IMG_thinking2.jpg")
-img6 = Image.open(Filename_Thinking2)
+thinking_faceO = pygame.image.load("IMG_thinking2.jpg")
+screen_for_pics6 = pygame.display.set_mode((600,600))
+screen_for_pics6.fill((255, 0, 128))

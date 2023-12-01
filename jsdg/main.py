@@ -1,8 +1,5 @@
 #Varshini's Code
 
-#Importing ImageGrid.py to display the graphics. SI
-import ImageGrid
-
 #Importing pygame and sys, import sys is used to manipulate different parts of the Python runtime environment - VR
 import pygame
 import sys

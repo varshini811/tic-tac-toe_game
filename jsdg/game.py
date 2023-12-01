@@ -5,6 +5,8 @@
 import pygame
 from Values import *
 from board import Board
+import ImageGrid as faces
+
 #This class represnts the behavior and stae of the game - VR
 class Game:
     def __init__(self, ultimate=False, max=False):
@@ -36,7 +38,7 @@ class Game:
     def ultimate_winner(self, surface, winner): #setting the winning screen RB
         print('ULTIMATE WINNER! ->', winner) #winner message RB
 
-        if winner == 1: #drawing the big X if the winner if X RB
+        if winner == 1: #drawing the big X if the winner is X RB
             color = CROSS_COLOR #seting the color RB
 
             '''drawing the big X by splitting it into 2 lines, here are the coordinates of where each line starts and stops RB''' 
@@ -48,6 +50,9 @@ class Game:
 
             pygame.draw.line(surface, color, iDesc, fDesc, 22) #drawing each line using the coordinates set for the start and stop RB
             pygame.draw.line(surface, color, iAsc, fAsc, 22)
+            
+            faces.screen_for_pics.blit(faces.winning_faceX,(50,50))
+            faces.screen_for_pics.blit(faces.losing_faceO,(50,50))
 
         elif winner == 2: #drawing a circle if the winner is O RB
             color = CIRCLE_COLOR #setting the color RB

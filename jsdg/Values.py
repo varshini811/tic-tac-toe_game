@@ -10,6 +10,7 @@ LINE_COLOR = (250, 218, 221) #This is color for the grid line - VR
 CROSS_COLOR = (0, 0, 0) #Color for the X - VR
 CIRCLE_COLOR = (255, 255, 255) #Color for the O - VR
 FADE = (222, 165, 164) #Color used for the fading effects in the game - VR
+Transparent_color = (255, 0, 128)
 
 #This sets the transperency level for certin elements of the code - VR
 ALPHA = 100
