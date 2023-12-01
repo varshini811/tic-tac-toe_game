@@ -53,7 +53,7 @@ class Main:
                         #This switches to the next turn for the plays - VR
                         game.next_turn()
 
-                #This handels the key pressing for teh game, specifically (control 'r') in order to rest the board - VR
+                #This handels the key pressing for the game, specifically (control 'r') in order to rest the board - VR
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         game.restart()
