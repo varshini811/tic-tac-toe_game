@@ -51,8 +51,8 @@ class Game:
             pygame.draw.line(surface, color, iDesc, fDesc, 22) #drawing each line using the coordinates set for the start and stop RB
             pygame.draw.line(surface, color, iAsc, fAsc, 22)
             
-            faces.screen_for_pics.blit(faces.winning_faceX,(0,50))
-            faces.screen_for_pics.blit(faces.losing_faceO,(50,0))
+            faces.screen_for_pics.blit(faces.winning_faceX,(50,50))
+            faces.screen_for_pics.blit(faces.losing_faceO,(50,50))
 
         elif winner == 2: #drawing a circle if the winner is O RB
             color = CIRCLE_COLOR #setting the color RB
