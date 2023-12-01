@@ -17,7 +17,7 @@ screen_for_pics2.fill((255, 0, 128))
 
 #This graphic will be displayed if player 1 loses
 losing_faceX = pygame.image.load("IMG_sad1.jpg")
-screen_for_pics3 = pygame.display.set_mode(600,600)
+screen_for_pics3 = pygame.display.set_mode((600,600))
 screen_for_pics3.fill((255, 0, 128))
 
 #This graphic will be displayed if player 2 loses
