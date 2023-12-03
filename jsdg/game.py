@@ -53,12 +53,15 @@ class Game:
             
             faces.screen_for_pics.blit(faces.winning_faceX,(50,50))
             faces.screen_for_pics.blit(faces.losing_faceO,(50,50))
-
+        
         elif winner == 2: #drawing a circle if the winner is O RB
             color = CIRCLE_COLOR #setting the color RB
 
             center = (WIDTH // 2, HEIGHT // 2) #setting the position of the center of the circle RB
             pygame.draw.circle(surface, color, center, WIDTH // 4, 22) #drawing the circle using the pygame builtin circle while setting radius and color
+
+            faces.screen_for_pics.blit(faces.winning_faceO,(50,50))
+            faces.screen_for_pics.blit(faces.losing_faceX,(50,50))
 
         #This will display a message for the ultimate winner message - VR
         font = pygame.font.SysFont('monospace', 64)
