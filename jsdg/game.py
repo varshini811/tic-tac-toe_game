@@ -24,9 +24,6 @@ class Game:
         #This part indicates that the game is currently in progress - VR
         self.playing = True
 
-        faces.screen_for_pics.blit(faces.thinking_faceX, (50, 50))
-        faces.screen_for_pics.blit(faces.thinking_faceO, (50, 50))
-
         #This initializing the font module from pygame - VR
         pygame.font.init()
 
@@ -73,7 +70,7 @@ class Game:
             faces.screen_for_pics.blit(faces.winning_faceO,(0,0)) 
             
             # DIsplays a graphic of player 1 crying because she lost. SI
-            faces.screen_for_pics.blit(faces.losing_faceO, (WIDTH - faces.losing_faceO.get_width() - 50, HEIGHT - faces.losing_faceO.get_height() - 50))
+            faces.screen_for_pics.blit(faces.losing_faceX, (WIDTH - faces.losing_faceX.get_width() - 50, HEIGHT - faces.losing_faceX.get_height() - 50))
 
         #This will display a message for the ultimate winner message - VR
         font = pygame.font.SysFont('monospace', 64)
