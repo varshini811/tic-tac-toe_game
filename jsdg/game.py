@@ -24,6 +24,9 @@ class Game:
         #This part indicates that the game is currently in progress - VR
         self.playing = True
 
+        faces.screen_for_pics.blit(faces.thinking_faceX, (50, 50))
+        faces.screen_for_pics.blit(faces.thinking_faceO, (50, 50))
+
         #This initializing the font module from pygame - VR
         pygame.font.init()
 
@@ -51,8 +54,14 @@ class Game:
             pygame.draw.line(surface, color, iDesc, fDesc, 22) #drawing each line using the coordinates set for the start and stop RB
             pygame.draw.line(surface, color, iAsc, fAsc, 22)
             
-            faces.screen_for_pics.blit(faces.winning_faceX,(50,50))
-            faces.screen_for_pics.blit(faces.losing_faceO,(50,50))
+            # Displays a graphic of player 1 happy because they won. SI
+            faces.screen_for_pics.blit(faces.winning_faceX,(0,0)) 
+
+            # Displays a graphic of player 2 crying because she lost. SI
+            faces.screen_for_pics.blit(faces.losing_faceO, (WIDTH - faces.losing_faceO.get_width() - 50, HEIGHT - faces.losing_faceO.get_height() - 50))
+
+
+
         
         elif winner == 2: #drawing a circle if the winner is O RB
             color = CIRCLE_COLOR #setting the color RB
@@ -60,8 +69,11 @@ class Game:
             center = (WIDTH // 2, HEIGHT // 2) #setting the position of the center of the circle RB
             pygame.draw.circle(surface, color, center, WIDTH // 4, 22) #drawing the circle using the pygame builtin circle while setting radius and color
 
-            faces.screen_for_pics.blit(faces.winning_faceO,(50,50))
-            faces.screen_for_pics.blit(faces.losing_faceX,(50,50))
+            # Displays a graphic of player 2 happy because they won. SI
+            faces.screen_for_pics.blit(faces.winning_faceO,(0,0)) 
+            
+            # DIsplays a graphic of player 1 crying because she lost. SI
+            faces.screen_for_pics.blit(faces.losing_faceO, (WIDTH - faces.losing_faceO.get_width() - 50, HEIGHT - faces.losing_faceO.get_height() - 50))
 
         #This will display a message for the ultimate winner message - VR
         font = pygame.font.SysFont('monospace', 64)
